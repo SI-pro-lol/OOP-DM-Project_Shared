@@ -1,6 +1,7 @@
 #include"House.hpp"
 
 House::House(string new_home_name): home_n("My house"), grnd_flr("Ground floor"){
+    // Use the default name if the new name is invalid.
     setHouseName(new_home_name);
 }
 string House::getHouseName() const{return home_n;}

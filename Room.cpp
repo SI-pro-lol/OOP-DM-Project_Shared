@@ -6,6 +6,7 @@ Room::Room(string new_room_name): room_name("Room"), app_count(0){
 }
 Room::Room(const Room& source_room): room_name(source_room.room_name), app_count(source_room.app_count){
     for(int i = 0; i < MAX_APPLIANCES; i++) appliances[i] = nullptr;
+    // Copy each appliance. Each room has its own set
     for(int i = 0; i < app_count; i++) appliances[i] = source_room.appliances[i]->clone();
 }
 Room& Room::operator=(const Room& source_room){

@@ -20,6 +20,7 @@ bool Floor::addRoom(string room_name){
 }
 bool Floor::removeRoom(int room_index){
     if(room_index < 0 || room_index >= room_count) return false;
+    // Move the remaining rooms to fill the gap
     for(int i = room_index; i < room_count - 1; i++) rooms[i] = rooms[i + 1];
     rooms[--room_count] = Room();
     return true;
