@@ -5,8 +5,8 @@ using namespace std;
 int Appliance::next_id = 1;
 
 Appliance::Appliance(string new_app_name, double power_w, int qty):
-    app_id(next_id++), app_name("Appliance"), rated_w(0),
-    app_qty(1), enabled(true){
+    app_id(next_id++), app_name("Appliance"), rated_w(0), app_qty(1), enabled(true){
+    // Use the default values if the input is invalid
     setData(new_app_name, power_w, qty, true);
 }
 Appliance::~Appliance(){}

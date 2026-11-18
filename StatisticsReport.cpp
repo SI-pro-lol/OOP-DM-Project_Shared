@@ -38,6 +38,7 @@ bool StatisticsReport::calculateDay(const House& home, const GridSource& grid, d
         DailyStep day_step = {};
         day_step.minute = min_idx;
         day_step.grid_available = grid.isGridAvailable(min_idx);
+        // Multiply watts by half an hour to get watt-hours.
         day_step.demand_wh = home.getTotalLoad(min_idx) * 0.5;
         day_step.grid_wh = std::min(day_step.demand_wh, grid.getAvailablePower(min_idx) * 0.5);
         day_step.unmet_wh = day_step.demand_wh - day_step.grid_wh;
