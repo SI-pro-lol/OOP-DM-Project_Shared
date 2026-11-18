@@ -16,7 +16,7 @@ enum ControlId{
 };
 
 static string getText(HWND control){
-    char txt[256];
+    char txt[256] = {};
     GetWindowTextA(control, txt, 256);
     return txt;
 }
@@ -190,6 +190,7 @@ void Gui::makeSourcesPage(){
     addLabel(1, "Connection limit (W)", 40, 205, 250);
     grid_limit_box = addEdit(1, numberText(grid.getGridLimit(), 0), ID_GRID_LIMIT, 40, 232, 260);
     addLabel(1, "Daily outage starts (HH:MM)", 40, 275, 270);
+    outage_start_box = addEdit(1, timeText(grid.getOutageStart()), ID_OUTAGE_START, 40, 302, 260);
     addLabel(1, "Outage duration (minutes)", 40, 345, 265);
     outage_duration_box = addEdit(1, to_string(grid.getOutageDuration()), ID_OUTAGE_DURATION, 40, 372, 260);
     addControl(1, "STATIC", "One repeating daily outage.\r\nUse 0 minutes for no outage.\r\nDuration must be a multiple of 30.\r\nAn outage may cross midnight.", 0,
