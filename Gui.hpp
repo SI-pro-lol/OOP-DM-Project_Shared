@@ -1,58 +1,33 @@
-#ifndef Gui_HPP
-#define Gui_HPP
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-#include<windows.h>
-#include<commctrl.h>
+#ifndef GUI_HPP
+#define GUI_HPP
+#include <SFML/Graphics.hpp>
 #include "StatisticsReport.hpp"
-
-class Gui{
+#include <functional>
+#include <vector>
+class Gui {
+    struct Widget { sf::FloatRect box; std::string text; int field; std::function<void()> action; };
     House home;
     GridSource grid;
-    StatisticsReport day_rpt;
-    double unit_rate;
-    int rm_sel, app_sel, active_page;
-    bool report_ready;
-
-    HWND window, tab_control, status_text;
-    HWND page_controls[3][70];
-    int control_count[3];
-    HFONT normal_font, title_font;
-
-    HWND home_n_box, rm_n_box, room_list, appliance_list;
-    HWND app_n_box, pwr_box, qty_box;
-    HWND enabled_box;
-    HWND grid_enabled_box, grid_limit_box, outage_start_box, outage_duration_box;
-    HWND rate_box, report_list, summary_text;
-
-    static LRESULT CALLBACK windowProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
-    LRESULT handleMessage(UINT message, WPARAM wparam, LPARAM lparam);
-    HWND addControl(int page, const char* type, string txt, int id,
-                    int x, int y, int width, int height, DWORD style = 0);
-    void addLabel(int page, string txt, int x, int y, int width = 210);
-    HWND addEdit(int page, string txt, int id, int x, int y, int width = 130);
-    void setup();
-    void makeHouseholdPage();
-    void makeSourcesPage();
-    void makeReportPage();
-    void showPage(int page);
-    void addDemoData();
-    void refreshRooms();
-    void refreshAppliances();
-    void loadAppliance();
-    void clearApplianceForm();
-    Appliance* readAppliance();
-    bool applySources();
-    void calculateReport();
-    void showReport();
-    void clearReport();
-    void onCommand(int id);
-    void setStatus(string txt);
-    void showError(string txt);
-
-    public:
-        Gui();
-        ~Gui();
-        int run(HINSTANCE instance, int show_command);
+    StatisticsReport report;
+    sf::RenderWindow window;
+    sf::Font font;
+    std::vector<Widget> widgets;
+    std::vector<std::string> values;
+    int page=0, room=0, appliance=-1, focus=-1, scroll=0;
+    bool enabled=true, gridOn=true, ready=false;
+    std::string status="Ready. Changes are kept for this session only.";
+    void label(const std::string&,float,float,unsigned=20,sf::Color=sf::Color(220,230,240));
+    void panel(float,float,float,float,sf::Color);
+    void button(const std::string&,float,float,float,std::function<void()>);
+    void field(int,const std::string&,float,float,float);
+    void draw();
+    void command(int);
+    void selectRoom(int);
+    void selectAppliance(int);
+    void invalidate();
+    bool applyGrid();
+public:
+    Gui();
+    int run();
 };
 #endif
