@@ -3,8 +3,7 @@
 #include<cmath>
 
 StatisticsReport::StatisticsReport(): steps(), step_count(0), demand_kwh(0),
-    grid_kwh(0), unmet_kwh(0), estimated_cost(0),
-    peak_load(0){}
+    grid_kwh(0), unmet_kwh(0), estimated_cost(0), peak_load(0){}
 
 void StatisticsReport::addStep(const DailyStep& day_step, double unit_rate){
     if(step_count == 48) return;

@@ -2,7 +2,8 @@
 #define House_HPP
 #include"Floor.hpp"
 
-class House{
+class House
+{
     string home_n;
     Floor grnd_flr;
     public:
